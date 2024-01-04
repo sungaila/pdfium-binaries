@@ -35,12 +35,14 @@ jobs:
   wasm:
     name: WASM
     uses: ./.github/workflows/build.yml
+    needs:
+      - query
     strategy:
       matrix:
         emsdk_version: [3.1.12, 3.1.34]
     with:
-      branch: ${{ github.event.inputs.branch || jobs.query.chromium.outputs.branch }}
-      version: ${{ github.event.inputs.version || jobs.query.chromium.outputs.version }}
+      branch: ${{ github.event.inputs.branch || steps.chromium.outputs.branch }}
+      version: ${{ github.event.inputs.version || steps.chromium.outputs.version }}
       is_debug: ${{ github.event.inputs.is_debug == 'true' }}
       target_os: wasm
       target_cpu: wasm
