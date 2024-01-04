@@ -24,7 +24,7 @@ jobs:
       version: ${{ steps.chromium.outputs.version }}
     name: Query Chromium infos
     runs-on: ubuntu-latest
-    if: github.event.inputs.branch == '' || github.event.inputs.version = ''
+    if: github.event.inputs.branch == '' || github.event.inputs.version == ''
     steps:
     - name: Get Chrome version
       id: chromium
