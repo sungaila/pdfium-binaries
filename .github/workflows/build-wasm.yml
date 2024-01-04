@@ -6,11 +6,9 @@ on:
       branch:
         description: PDFium branch
         required: false
-        default: ""
       version:
         description: PDFium version
         required: false
-        default: ""
 
 jobs:
   query:
