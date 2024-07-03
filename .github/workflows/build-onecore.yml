@@ -76,7 +76,7 @@ jobs:
       - name: Pack
         shell: bash
         run: |
-          for NUSPEC in nuget/*.nuspec; do
+          for NUSPEC in nuget/Sungaila.PDFium.Win32.OneCore.nuspec; do
             echo "::group::$NUSPEC"
             nuget pack "$NUSPEC" -p "$NUSPEC_PROPERTIES"
             echo "::endgroup::"
