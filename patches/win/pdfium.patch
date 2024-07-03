@@ -10,3 +10,17 @@ index 28bc516bc..aa4cb0452 100644
  #include "core/fxge/cfx_font.h"
  #include "core/fxge/cfx_windowsrenderdevice.h"
  #include "core/fxge/dib/cfx_dibbase.h"
+
+ diff --git a/core/fxcrt/win/win_util.cc b/core/fxcrt/win/win_util.cc
+index 43e9151d1..5c7903d8a 100644
+--- a/core/fxcrt/win/win_util.cc
++++ b/core/fxcrt/win/win_util.cc
+@@ -17,7 +17,7 @@ bool IsUser32AndGdi32Available() {
+         GetProcessMitigationPolicy)* GetProcessMitigationPolicyType;
+     GetProcessMitigationPolicyType get_process_mitigation_policy_func =
+         reinterpret_cast<GetProcessMitigationPolicyType>(GetProcAddress(
+-            GetModuleHandle(L"kernel32.dll"), "GetProcessMitigationPolicy"));
++            GetModuleHandle(L"onecore.dll"), "GetProcessMitigationPolicy"));
+ 
+     if (!get_process_mitigation_policy_func)
+       return true;
