@@ -3,7 +3,8 @@
   <metadata>
     <id>Sungaila.PDFium.BlazorWebAssembly</id>
     <version>$version$</version>
-    <authors>Benoit Blanchon, David Sungaila</authors>
+    <authors>Benoît Blanchon, David Sungaila</authors>
+    <owners>David Sungaila</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">Apache-2.0</license>
     <projectUrl>https://github.com/sungaila/pdfium-binaries</projectUrl>
