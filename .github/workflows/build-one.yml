@@ -22,15 +22,21 @@ on:
         required: false
         default: false
       target_os:
-        description: Target OS (wasm|win)
-        type: string
-        required: true
-        default: "wasm"
+        description: Target OS
+        type: choice
+        options:
+          - wasm
+          - win
+        default: wasm
       target_cpu:
-        description: Target CPU (arm64|x64|x86|wasm)
-        type: string
-        required: true
-        default: "wasm"
+        description: Target CPU
+        type: choice
+        options:
+          - arm64
+          - x64
+          - x86
+          - wasm
+        default: wasm
 
 jobs:
   build:
