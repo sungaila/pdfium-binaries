@@ -49,6 +49,7 @@ jobs:
       target_os: win
       target_cpu: ${{ matrix.target_cpu }}
       enable_v8: false
+      emsdk_version: ""
 
   nuget:
     name: Build NuGet packages
