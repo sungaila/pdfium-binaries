@@ -40,8 +40,9 @@ jobs:
       - query
     if: always() && !cancelled() && !failure()
     strategy:
+      fail-fast: false
       matrix:
-        emsdk_version: [3.1.12, 3.1.34]
+        emsdk_version: [3.1.12, 3.1.34, 3.1.56]
     with:
       branch: ${{ github.event.inputs.branch || needs.query.outputs.branch }}
       version: ${{ github.event.inputs.version || needs.query.outputs.version }}
