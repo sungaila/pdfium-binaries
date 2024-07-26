@@ -13,11 +13,12 @@
 
   <Choose>
     <When Condition="'$(TargetFramework)'=='net7.0'" />
-    <Otherwise>
+    <When Condition="'$(TargetFramework)'=='net8.0'">
       <PropertyGroup>
         <WasmEnableExceptionHandling>false</WasmEnableExceptionHandling>
       </PropertyGroup>
-    </Otherwise>
+    </When>
+    <When Condition="'$(TargetFramework)'=='net9.0'" />
   </Choose>
 
 </Project>
