@@ -11,14 +11,8 @@
     <NativeFileReference Include="$(_PDFiumNativeLibraryRootDir)pdfium.a" />
   </ItemGroup>
 
-  <Choose>
-    <When Condition="'$(TargetFramework)'=='net7.0'" />
-    <When Condition="'$(TargetFramework)'=='net8.0'">
-      <PropertyGroup>
-        <WasmEnableExceptionHandling>false</WasmEnableExceptionHandling>
-      </PropertyGroup>
-    </When>
-    <When Condition="'$(TargetFramework)'=='net9.0'" />
-  </Choose>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net8.0'">
+    <WasmEnableExceptionHandling>false</WasmEnableExceptionHandling>
+  </PropertyGroup>
 
 </Project>
