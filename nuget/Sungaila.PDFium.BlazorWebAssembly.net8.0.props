@@ -11,4 +11,8 @@
     <NativeFileReference Include="$(_PDFiumNativeLibraryRootDir)pdfium.a" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <WasmEnableExceptionHandling>false</WasmEnableExceptionHandling>
+  </PropertyGroup>
+
 </Project>
