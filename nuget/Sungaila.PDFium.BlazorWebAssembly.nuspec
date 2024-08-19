@@ -38,9 +38,9 @@
     <file src="pdfium-wasm-3.1.56/lib/libpdfium.a" target="build/net9.0/pdfium.a" />
     <file src="Sungaila.PDFium.BlazorWebAssembly.props" target="build/net7.0/Sungaila.PDFium.BlazorWebAssembly.props" />
     <file src="Sungaila.PDFium.BlazorWebAssembly.net8.0.props" target="build/net8.0/Sungaila.PDFium.BlazorWebAssembly.props" />
-    <file src="Sungaila.PDFium.BlazorWebAssembly.props" target="build/net9.0/Sungaila.PDFium.BlazorWebAssembly.props" />
+    <file src="Sungaila.PDFium.BlazorWebAssembly.net9.0.props" target="build/net9.0/Sungaila.PDFium.BlazorWebAssembly.props" />
     <file src="Sungaila.PDFium.BlazorWebAssembly.props" target="buildTransitive/net7.0/Sungaila.PDFium.BlazorWebAssembly.props" />
     <file src="Sungaila.PDFium.BlazorWebAssembly.net8.0.props" target="buildTransitive/net8.0/Sungaila.PDFium.BlazorWebAssembly.props" />
-    <file src="Sungaila.PDFium.BlazorWebAssembly.props" target="buildTransitive/net9.0/Sungaila.PDFium.BlazorWebAssembly.props" />
+    <file src="Sungaila.PDFium.BlazorWebAssembly.net9.0.props" target="buildTransitive/net9.0/Sungaila.PDFium.BlazorWebAssembly.props" />
   </files>
 </package>
