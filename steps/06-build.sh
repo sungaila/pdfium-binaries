@@ -11,6 +11,8 @@ if [ "$TARGET_CPU" == "wasm" ]; then
   LIBPDFIUMA="$BUILD_DIR/obj/libpdfium.a"
   EXPORTED_FUNCTIONS=$(llvm-nm $LIBPDFIUMA --format=just-symbols | grep "^FPDF\|^FSDK\|^FORM\|^IFSDK" | sed 's/^/_/' | paste -sd "," -)
   EMCC_ARGS=(
+    -f wasm-exceptions
+    -s SUPPORT_LONGJMP=wasm
     -s EXPORTED_FUNCTIONS="$EXPORTED_FUNCTIONS"
     -s LLD_REPORT_UNDEFINED
     -s WASM=1
