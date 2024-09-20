@@ -11,6 +11,24 @@ on:
         description: PDFium version
         required: false
         default: ""
+      target_os:
+        description: Target OS
+        type: choice
+        default: 'wasm'
+        options:
+          - wasm
+      target_cpu:
+        description: Target CPU
+        type: choice
+        default: 'wasm'
+        options:
+          - wasm
+      target_environment:
+        description: Target environment
+        type: choice
+        default: ''
+        options:
+          - ''
       emsdk_version:
         description: Emscripten SDK
         type: string
@@ -30,8 +48,8 @@ jobs:
       branch: ${{ github.event.inputs.branch }}
       version: ${{ github.event.inputs.version }}
       is_debug: ${{ github.event.inputs.is_debug == 'true' }}
-      target_os: wasm
-      target_cpu: wasm
-      target_libc: ''
+      target_os: ${{ github.event.inputs.target_os }}
+      target_cpu: ${{ github.event.inputs.target_cpu }}
+      target_environment: ${{ github.event.inputs.target_environment }}
       enable_v8: false
       emsdk_version: ${{ github.event.inputs.emsdk_version }}
