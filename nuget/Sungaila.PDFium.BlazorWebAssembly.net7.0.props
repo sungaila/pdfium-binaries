@@ -4,13 +4,11 @@
   <PropertyGroup>
     <_PDFiumNativeLibraryCurrPath>$([System.IO.Path]::GetDirectoryName('$(MSBuildThisFileDirectory)'))</_PDFiumNativeLibraryCurrPath>
     <_PDFiumNativeLibraryDirName>$([System.IO.Path]::GetFileName('$(_PDFiumNativeLibraryCurrPath)'))</_PDFiumNativeLibraryDirName>
-    <_PDFiumNativeLibraryRootDir>$(MSBuildThisFileDirectory)..\..\build\$(_PDFiumNativeLibraryDirName)</_PDFiumNativeLibraryRootDir>
+    <_PDFiumNativeLibraryRootDir>$(MSBuildThisFileDirectory)..\..\build\$(_PDFiumNativeLibraryDirName)\</_PDFiumNativeLibraryRootDir>
   </PropertyGroup>
 
   <ItemGroup>
-    <NativeFileReference Include="$(_PDFiumNativeLibraryRootDir)\pdfium.a" />
-    <!-- add the matching libSkiaSharp for pdfium (if it exists) -->
-    <NativeFileReference Include="$(SkiaSharpStaticLibraryPath)\3.1.12\simd\libSkiaSharp.a" />
+    <NativeFileReference Include="$(_PDFiumNativeLibraryRootDir)pdfium.a" />
   </ItemGroup>
 
 </Project>
