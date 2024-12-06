@@ -4,7 +4,7 @@ OS=${PDFium_TARGET_OS:?}
 SOURCE=${PDFium_SOURCE_DIR:-pdfium}
 BUILD=${PDFium_BUILD_DIR:-$SOURCE/out}
 TARGET_CPU=${PDFium_TARGET_CPU:?}
-TARGET_ENVIRONMENT=${PDFium_TARGET_ENVIRONMENT:-default}
+TARGET_ENVIRONMENT=${PDFium_TARGET_ENVIRONMENT:-}
 ENABLE_V8=${PDFium_ENABLE_V8:-false}
 IS_DEBUG=${PDFium_IS_DEBUG:-false}
 
@@ -48,6 +48,7 @@ mkdir -p "$BUILD"
     wasm)
       echo 'pdf_is_complete_lib = true'
       echo 'is_clang = false'
+      echo 'use_custom_libcxx = false'
       ;;
   esac
 
@@ -56,6 +57,7 @@ mkdir -p "$BUILD"
       echo 'is_musl = true'
       echo 'is_clang = false'
       echo 'use_custom_libcxx = false'
+      echo 'use_custom_libcxx_for_host = false'
       [ "$ENABLE_V8" == "true" ] && case "$TARGET_CPU" in
         arm)
             echo "v8_snapshot_toolchain = \"//build/toolchain/linux:clang_x86_v8_arm\""
