@@ -6,6 +6,7 @@ TARGET_ENVIRONMENT="${PDFium_TARGET_ENVIRONMENT:-}"
 SOURCE_DIR="$PWD/example"
 CMAKE_ARGS=()
 CAN_RUN_ON_HOST=false
+EXAMPLE="./example"
 
 export PDFium_DIR="$PWD/staging"
 
@@ -43,12 +44,15 @@ case "$OS" in
     case "$TARGET_ENVIRONMENT" in
       catalyst)
         SDK="macosx"
+        EXAMPLE="example.app/Contents/MacOS/example"
         ;;
       device)
         SDK="iphoneos"
+        EXAMPLE="example.app/example"
         ;;
       simulator)
         SDK="iphonesimulator"
+        EXAMPLE="example.app/example"
         ;;
     esac
     CMAKE_ARGS+=(
@@ -139,6 +143,7 @@ case "$OS" in
       -G "Visual Studio 17 2022"
       -A "$ARCH"
     )
+    EXAMPLE="Debug/example.exe"
     ;;
 
   wasm)
@@ -154,12 +159,6 @@ pushd build
 
 cmake "${CMAKE_ARGS[@]}"
 cmake --build .
-
-if [ "$OS" == "win" ]; then
-  EXAMPLE="Debug/example.exe"
-else
-  EXAMPLE="./example"
-fi
 
 file $EXAMPLE
 
