@@ -47,7 +47,7 @@ jobs:
       branch: ${{ github.event.inputs.branch || needs.query.outputs.branch }}
       version: ${{ github.event.inputs.version || needs.query.outputs.version }}
       is_debug: false
-      target_os: wasm
+      target_os: emscripten
       target_cpu: wasm
       enable_v8: false
       emsdk_version: ${{ matrix.emsdk_version }}

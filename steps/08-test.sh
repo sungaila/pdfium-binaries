@@ -7,6 +7,7 @@ SOURCE_DIR="$PWD/example"
 CMAKE_ARGS=()
 CAN_RUN_ON_HOST=false
 EXAMPLE="./example"
+SKIP_TESTS=false
 
 export PDFium_DIR="$PWD/staging"
 
@@ -146,24 +147,26 @@ case "$OS" in
     EXAMPLE="Debug/example.exe"
     ;;
 
-  wasm)
+  emscripten)
     # TODO: add test for Wasm
-    exit
+    SKIP_TESTS=true
     ;;
 esac
 
 CMAKE_ARGS+=("$SOURCE_DIR")
 
-mkdir -p build
-pushd build
+if [ $SKIP_TESTS == "false" ]; then
+  mkdir -p build
+  pushd build
 
-cmake "${CMAKE_ARGS[@]}"
-cmake --build .
+  cmake "${CMAKE_ARGS[@]}"
+  cmake --build .
 
-file $EXAMPLE
+  file $EXAMPLE
 
-if [ $CAN_RUN_ON_HOST == "true" ]; then
-  $EXAMPLE "${PDFium_SOURCE_DIR}/testing/resources/hello_world.pdf" hello_world.ppm
-fi
+  if [ $CAN_RUN_ON_HOST == "true" ]; then
+    $EXAMPLE "${PDFium_SOURCE_DIR}/testing/resources/hello_world.pdf" hello_world.ppm
+  fi
 
-popd
+  popd
+fi;

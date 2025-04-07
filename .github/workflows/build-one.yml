@@ -14,9 +14,14 @@ on:
       target_os:
         description: Target OS
         type: choice
-        default: 'wasm'
+        default: 'emscripten'
         options:
-          - wasm
+          - android
+          - emscripten
+          - ios
+          - linux
+          - mac
+          - win
       target_cpu:
         description: Target CPU
         type: choice
