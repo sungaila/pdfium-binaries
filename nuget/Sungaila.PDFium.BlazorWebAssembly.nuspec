@@ -15,8 +15,6 @@
     <iconUrl>https://raw.githubusercontent.com/sungaila/pdfium-binaries/master/nuget/Sungaila.PDFium.BlazorWebAssembly.png</iconUrl>
     <readme>README.md</readme>
     <dependencies>
-      <group targetFramework="net7.0" />
-      <group targetFramework="net8.0" />
       <group targetFramework="net9.0" />
     </dependencies>
   </metadata>
@@ -26,21 +24,13 @@
     <file src="../README.md" target="README.md" />
 
     <!-- https://learn.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu5128 -->
-    <file src="_._" target="lib/net7.0/_._" />
-    <file src="_._" target="lib/net8.0/_._" />
     <file src="_._" target="lib/net9.0/_._" />
 
     <!-- WebAssembly-specific dependencies aren't referenced automatically and must be referenced manually as NativeFileReferences. -->
     <!-- Package authors can choose to add the native references by including a .props file in the package with the references. -->
     <!-- https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-native-dependencies#package-native-dependencies-in-a-nuget-package -->
-    <file src="pdfium-wasm-3.1.12/lib/libpdfium.a" target="build/net7.0/pdfium.a" />
-    <file src="pdfium-wasm-3.1.34/lib/libpdfium.a" target="build/net8.0/pdfium.a" />
     <file src="pdfium-wasm-3.1.56/lib/libpdfium.a" target="build/net9.0/pdfium.a" />
-    <file src="Sungaila.PDFium.BlazorWebAssembly.net7.0.props" target="build/net7.0/Sungaila.PDFium.BlazorWebAssembly.props" />
-    <file src="Sungaila.PDFium.BlazorWebAssembly.net8.0.props" target="build/net8.0/Sungaila.PDFium.BlazorWebAssembly.props" />
     <file src="Sungaila.PDFium.BlazorWebAssembly.net9.0.props" target="build/net9.0/Sungaila.PDFium.BlazorWebAssembly.props" />
-    <file src="Sungaila.PDFium.BlazorWebAssembly.net7.0.props" target="buildTransitive/net7.0/Sungaila.PDFium.BlazorWebAssembly.props" />
-    <file src="Sungaila.PDFium.BlazorWebAssembly.net8.0.props" target="buildTransitive/net8.0/Sungaila.PDFium.BlazorWebAssembly.props" />
     <file src="Sungaila.PDFium.BlazorWebAssembly.net9.0.props" target="buildTransitive/net9.0/Sungaila.PDFium.BlazorWebAssembly.props" />
   </files>
 </package>
