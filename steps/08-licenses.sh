@@ -1,12 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/bash -eux
 
 SOURCE_DIR=${PDFium_SOURCE_DIR:-pdfium}
 BUILD_DIR=${PDFium_BUILD_DIR:-pdfium/out}
 TARGET_ENVIRONMENT=${PDFium_TARGET_ENVIRONMENT:-}
-OUTPUT_DIR=${1:?output directory is required}
-
-set -eu
-
+ENABLE_V8=${PDFium_ENABLE_V8:-false}
+OUTPUT_DIR="$PWD/staging/licenses"
 
 # Extract third-party library names and store in a variable
 THIRD_PARTY_LIBRARIES=$(sed -n 's/.*third_party\/\([a-z0-9_-]*\).*/\1/p' "$BUILD_DIR/build.ninja" | sort -u)
@@ -87,6 +85,10 @@ while read -r LIBRARY; do
   esac
 done <<< "$THIRD_PARTY_LIBRARIES"
 
+if [ "$ENABLE_V8" == "true" ]; then
+  cp "$SOURCE_DIR/v8/LICENSE.v8" "$OUTPUT_DIR/v8.txt"
+  cp "$SOURCE_DIR/v8/LICENSE.fdlibm" "$OUTPUT_DIR/fdlibm.txt"
+fi
 
 if [ "$TARGET_ENVIRONMENT" == "musl" ]; then
   curl -s -o "$OUTPUT_DIR/musl.txt" https://git.musl-libc.org/cgit/musl/plain/COPYRIGHT
