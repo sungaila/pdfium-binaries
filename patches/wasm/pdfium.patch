@@ -23,6 +23,7 @@ index 215a63b..e52e9b6 100644
 +  if (is_linux || is_chromeos || is_wasm) {
      sources += [ "linux/fx_linux_impl.cpp" ]
    }
+
 diff --git a/core/fxcodec/BUILD.gn b/core/fxcodec/BUILD.gn
 index 85733fdc9..47378215f 100644
 --- a/core/fxcodec/BUILD.gn
