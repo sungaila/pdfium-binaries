@@ -44,9 +44,9 @@ index 4b4d65c..08612bf 100644
    nm = cc
    ld = cxx
  
-+  extra_cflags   = [ "-Wno-unknown-warning-option", "-fwasm-exceptions" ]
-+  extra_cxxflags = [ "-Wno-unknown-warning-option", "-fwasm-exceptions" ]
-+  extra_ldflags  = [ "-fwasm-exceptions" ]
++  extra_cflags   = "-Wno-unknown-warning-option -fwasm-exceptions"
++  extra_cxxflags = "-Wno-unknown-warning-option -fwasm-exceptions"
++  extra_ldflags  = "-fwasm-exceptions"
 +
    toolchain_args = {
      current_cpu = "wasm"
