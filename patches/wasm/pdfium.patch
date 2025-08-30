@@ -37,3 +37,23 @@ index 85733fdc9..47378215f 100644
    ]
    if (pdf_enable_xfa) {
      sources += [
+diff --git a/third_party/BUILD.gn b/third_party/BUILD.gn
+index e8d51d5f0..04db68edc 100644
+--- a/third_party/BUILD.gn
++++ b/third_party/BUILD.gn
+@@ -328,6 +328,15 @@ if (!build_with_chromium) {
+     defines = [ "USE_LIBJPEG_TURBO=1" ]
+   }
+ 
++  config("jpeg_includes_config") {
++    include_dirs = [ "//third_party/libjpeg_turbo" ]
++  }
++
++  group("jpeg_includes") {
++    public_configs = [ ":jpeg_includes_config" ]
++    visibility = [ "//core/*" ]
++  }
++
+   # This is a meta target that forwards to the system's libjpeg,
+   # third_party/libjpeg, or third_party/libjpeg_turbo depending on the build args
+   # declared in this file.
