@@ -51,16 +51,3 @@ index 4b4d65c..08612bf 100644
    toolchain_args = {
      current_cpu = "wasm"
      current_os = "emscripten"
-diff --git a/core/fxcodec/BUILD.gn b/core/fxcodec/BUILD.gn
-index 85733fdc9..47378215f 100644
---- a/core/fxcodec/BUILD.gn
-+++ b/core/fxcodec/BUILD.gn
-@@ -79,7 +79,7 @@ source_set("fxcodec") {
-     "../../third_party:libopenjpeg2",
-     "../../third_party:zlib",
-     "../fxge",
--    "//third_party:jpeg",
-+    "//third_party:jpeg_includes",
-   ]
-   if (pdf_enable_xfa) {
-     sources += [
