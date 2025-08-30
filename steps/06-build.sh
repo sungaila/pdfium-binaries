@@ -18,7 +18,6 @@ if [ "$TARGET_CPU" == "wasm" ]; then
     -s LLD_REPORT_UNDEFINED
     -s WASM=1
     -fwasm-exceptions
-    -sDISABLE_EXCEPTION_CATCHING=0
     -sSUPPORT_LONGJMP=wasm
     -o "$BUILD_DIR/pdfium.html"
     "$LIBPDFIUMA"
