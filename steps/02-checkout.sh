@@ -5,10 +5,12 @@ OS=${PDFium_TARGET_OS:?}
 ENABLE_V8=${PDFium_ENABLE_V8:-false}
 
 CONFIG_ARGS=()
-
 # Clone
+CONFIG_ARGS+=( --custom-var "checkout_configuration=default" )
 gclient config --unmanaged "$PDFium_URL" "${CONFIG_ARGS[@]-}"
-echo "target_os = [ '$OS' ]" >> .gclient
+cat >> .gclient <<EOF
+target_os = [ "linux", "$OS" ]
+EOF
 
 
 # Reset
@@ -19,20 +21,9 @@ for FOLDER in pdfium pdfium/build pdfium/v8 pdfium/third_party/libjpeg_turbo pdf
   fi
 done
 
-gclient sync -r "origin/${PDFium_BRANCH:-main}" --no-history --shallow
+gclient sync -r "origin/${PDFium_BRANCH:-main}" --no-history --shallow --reset --force --delete_unversioned_trees
+gclient runhooks
 
-set +e
-FOUND=""
-for d in third_party/libjpeg_turbo third_party/libjpeg; do
-  if [ -f "pdfium/$d/jerror.h" ] && [ -f "pdfium/$d/jpeglib.h" ]; then
-    echo "Found JPEG headers in pdfium/$d"
-    FOUND="yes"
-    break
-  fi
-done
-set -e
-if [ -z "$FOUND" ]; then
-  echo "ERROR: libjpeg headers (jerror.h / jpeglib.h) wurden nicht eingecheckt."
-  echo "Tipp: checkout_configuration=minimal entfernen oder auf 'default' setzen."
-  exit 1
-fi
+test -f pdfium/third_party/libjpeg_turbo/jerror.h && echo ok || echo missing
+test -f pdfium/third_party/libjpeg_turbo/jpeglib.h && echo ok || echo missing
+test -f pdfium/gen/third_party/libjpeg_turbo/jconfig.h && echo gen-ok || echo gen-missing

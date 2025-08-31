@@ -41,7 +41,7 @@ diff --git a/third_party/BUILD.gn b/third_party/BUILD.gn
 index e8d51d5f0..05db9d47b 100644
 --- a/third_party/BUILD.gn
 +++ b/third_party/BUILD.gn
-@@ -328,6 +328,18 @@ if (!build_with_chromium) {
+@@ -328,6 +328,20 @@ if (!build_with_chromium) {
      defines = [ "USE_LIBJPEG_TURBO=1" ]
    }
  
@@ -49,6 +49,8 @@ index e8d51d5f0..05db9d47b 100644
 +    include_dirs = []
 +    include_dirs += [ "//third_party/libjpeg_turbo" ]
 +    include_dirs += [ "//third_party/libjpeg" ]
++    include_dirs += [ "gen/third_party/libjpeg_turbo" ]
++    include_dirs += [ "gen/third_party/libjpeg" ]
 +  }
 +
 +  group("jpeg_includes") {
