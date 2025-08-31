@@ -38,18 +38,15 @@ index 85733fdc9..47378215f 100644
    if (pdf_enable_xfa) {
      sources += [
 diff --git a/third_party/BUILD.gn b/third_party/BUILD.gn
-index e8d51d5f0..d663f66f7 100644
+index e8d51d5f0..05db9d47b 100644
 --- a/third_party/BUILD.gn
 +++ b/third_party/BUILD.gn
-@@ -328,6 +328,21 @@ if (!build_with_chromium) {
+@@ -328,6 +328,18 @@ if (!build_with_chromium) {
      defines = [ "USE_LIBJPEG_TURBO=1" ]
    }
  
 +  config("jpeg_includes_config") {
 +    include_dirs = []
-+    if (exec_script("//build/config/python.gni", "defined", [], "value")) {
-+      
-+    }
 +    include_dirs += [ "//third_party/libjpeg_turbo" ]
 +    include_dirs += [ "//third_party/libjpeg" ]
 +  }
