@@ -5,9 +5,6 @@ OS=${PDFium_TARGET_OS:?}
 ENABLE_V8=${PDFium_ENABLE_V8:-false}
 
 CONFIG_ARGS=()
-CONFIG_ARGS+=(
-  --custom-var "checkout_configuration=default"
-)
 
 # Clone
 gclient config --unmanaged "$PDFium_URL" "${CONFIG_ARGS[@]-}"
