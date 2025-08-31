@@ -23,42 +23,4 @@ index 215a63b..e52e9b6 100644
 +  if (is_linux || is_chromeos || is_wasm) {
      sources += [ "linux/fx_linux_impl.cpp" ]
    }
-
-diff --git a/core/fxcodec/BUILD.gn b/core/fxcodec/BUILD.gn
-index 85733fdc9..47378215f 100644
---- a/core/fxcodec/BUILD.gn
-+++ b/core/fxcodec/BUILD.gn
-@@ -79,7 +79,7 @@ source_set("fxcodec") {
-     "../../third_party:libopenjpeg2",
-     "../../third_party:zlib",
-     "../fxge",
--    "//third_party:jpeg",
-+    "//third_party:jpeg_includes",
-   ]
-   if (pdf_enable_xfa) {
-     sources += [
-diff --git a/third_party/BUILD.gn b/third_party/BUILD.gn
-index e8d51d5f0..05db9d47b 100644
---- a/third_party/BUILD.gn
-+++ b/third_party/BUILD.gn
-@@ -328,6 +328,20 @@ if (!build_with_chromium) {
-     defines = [ "USE_LIBJPEG_TURBO=1" ]
-   }
  
-+  config("jpeg_includes_config") {
-+    include_dirs = []
-+    include_dirs += [ "//third_party/libjpeg_turbo" ]
-+    include_dirs += [ "//third_party/libjpeg" ]
-+    include_dirs += [ "gen/third_party/libjpeg_turbo" ]
-+    include_dirs += [ "gen/third_party/libjpeg" ]
-+  }
-+
-+  group("jpeg_includes") {
-+    public_configs = [ ":jpeg_includes_config" ]
-+    all_dependent_configs = [ ":jpeg_includes_config" ]
-+    visibility = [ "//core/*", "//fpdfsdk/*", "//fxjs/*", "//public/*" ]
-+  }
-+
-   # This is a meta target that forwards to the system's libjpeg,
-   # third_party/libjpeg, or third_party/libjpeg_turbo depending on the build args
-   # declared in this file.
