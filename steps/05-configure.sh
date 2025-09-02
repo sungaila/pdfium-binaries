@@ -20,6 +20,7 @@ mkdir -p "$BUILD"
   echo "pdf_enable_xfa = $ENABLE_V8"
   echo "treat_warnings_as_errors = false"
   echo "is_component_build = false"
+  echo "use_system_libjpeg = true"
 
   if [ "$ENABLE_V8" == "true" ]; then
     echo "v8_use_external_startup_data = false"
