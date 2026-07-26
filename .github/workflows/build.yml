@@ -42,10 +42,15 @@ on:
         required: false
         default: 3.1.56
       use_system_libjpeg:
-        description: Use the Emscripten system libjpeg instead of bundling PDFium's libjpeg-turbo
+        description: Compile PDFium against the libjpeg-turbo ABI bundled by SkiaSharp
         type: boolean
         required: false
         default: false
+      skiasharp_version:
+        description: SkiaSharp version whose bundled libjpeg-turbo ABI is targeted
+        type: string
+        required: false
+        default: 4.150.1
     outputs:
       artifact:
         description: "The name of the artifact"
@@ -70,6 +75,7 @@ jobs:
       PDFium_VERSION: ${{ inputs.version }}
       EMSDK_VERSION: ${{ inputs.emsdk_version }}
       PDFium_USE_SYSTEM_LIBJPEG: ${{ inputs.use_system_libjpeg }}
+      SKIASHARP_VERSION: ${{ inputs.skiasharp_version }}
       MUSL_URL: ${{ secrets.MUSL_URL }}
     steps:
       - name: Initialize
@@ -99,6 +105,10 @@ jobs:
         timeout-minutes: 15
       - name: Apply patches
         run: steps/03-patch.sh
+        shell: bash
+      - name: Resolve SkiaSharp dependencies
+        if: inputs.target_os == 'emscripten' && inputs.use_system_libjpeg
+        run: steps/resolve-skiasharp-dependencies.sh
         shell: bash
       - name: Install (2/2)
         run: steps/04-install-extras.sh

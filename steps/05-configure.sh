@@ -66,6 +66,7 @@ mkdir -p "$BUILD"
       echo 'is_clang = false'
       echo 'use_custom_libcxx = false'
       echo "use_system_libjpeg = $USE_SYSTEM_LIBJPEG"
+      [ "$USE_SYSTEM_LIBJPEG" == "true" ] && echo 'use_libjpeg_turbo = false'
       if [ "$ENABLE_V8" == "true" ]; then
         # Set a toolchain with the same bitness as the target CPU
         echo "v8_snapshot_toolchain = \"//build/toolchain/linux:x86\""

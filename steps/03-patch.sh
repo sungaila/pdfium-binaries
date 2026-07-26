@@ -50,6 +50,7 @@ case "$OS" in
 
   emscripten)
     apply_patch "$PATCHES/wasm/pdfium.patch"
+    apply_patch "$PATCHES/wasm/libjpeg.patch"
     apply_patch "$PATCHES/wasm/build.patch" build
     if [ "$ENABLE_V8" == "true" ]; then
       apply_patch "$PATCHES/wasm/v8.patch" v8

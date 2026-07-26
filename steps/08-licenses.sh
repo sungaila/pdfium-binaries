@@ -58,6 +58,10 @@ while read -r LIBRARY; do
       cp "$SOURCE_DIR/third_party/libjpeg_turbo/LICENSE.md" "$OUTPUT_DIR/libjpeg_turbo.md"
       cp "$SOURCE_DIR/third_party/libjpeg_turbo/README.ijg" "$OUTPUT_DIR/libjpeg_turbo.ijg"
       ;;
+    skiasharp_libjpeg_turbo)
+      cp "$SOURCE_DIR/third_party/skiasharp_libjpeg_turbo/LICENSE.md" "$OUTPUT_DIR/libjpeg_turbo.md"
+      cp "$SOURCE_DIR/third_party/skiasharp_libjpeg_turbo/README.ijg" "$OUTPUT_DIR/libjpeg_turbo.ijg"
+      ;;
     libopenjpeg|libopenjpeg2|fx_libopenjpeg)
       sed -n '1,/\*\//p' "$SOURCE_DIR/third_party/libopenjpeg/openjpeg.c" > "$OUTPUT_DIR/libopenjpeg.txt"
       ;;

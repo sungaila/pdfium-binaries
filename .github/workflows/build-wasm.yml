@@ -9,6 +9,11 @@ on:
       version:
         description: PDFium version
         required: false
+      skiasharp_version:
+        description: SkiaSharp version used to resolve the matching mono/skia and libjpeg-turbo revisions
+        type: string
+        required: true
+        default: 4.150.1
       release:
         description: Publish GitHub release
         type: boolean
@@ -56,6 +61,7 @@ jobs:
       enable_v8: false
       emsdk_version: ${{ matrix.emsdk_version }}
       use_system_libjpeg: ${{ matrix.use_system_libjpeg }}
+      skiasharp_version: ${{ inputs.skiasharp_version }}
 
   nuget:
     name: Build NuGet packages

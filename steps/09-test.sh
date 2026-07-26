@@ -157,8 +157,31 @@ case "$OS" in
     ;;
 
   emscripten)
-    # TODO: add test for Wasm
     SKIP_TESTS=true
+
+    LIBPDFIUM="$PWD/staging/lib/libpdfium.a"
+    USE_SYSTEM_LIBJPEG=${PDFium_USE_SYSTEM_LIBJPEG:-false}
+
+    test -f "$LIBPDFIUM"
+
+    if [ "$USE_SYSTEM_LIBJPEG" == "true" ]; then
+      LIBJPEG_DIR="${PDFium_SOURCE_DIR:-pdfium}/third_party/skiasharp_libjpeg_turbo"
+      : "${SKIASHARP_LIBJPEG_TURBO_VERSION:?SkiaSharp dependency resolution was not run}"
+      : "${SKIASHARP_JPEG_LIB_VERSION:?SkiaSharp dependency resolution was not run}"
+
+      grep -Eq "^#define JPEG_LIB_VERSION[[:space:]]+$SKIASHARP_JPEG_LIB_VERSION$" "$LIBJPEG_DIR/jconfig.h"
+      test "$(awk '$1 == "#define" && $2 == "LIBJPEG_TURBO_VERSION" { gsub(/"/, "", $3); print $3 }' "$LIBJPEG_DIR/jconfig.h")" = \
+        "$SKIASHARP_LIBJPEG_TURBO_VERSION"
+
+      # The SkiaSharp-compatible variant must consume JPEG symbols from
+      # SkiaSharp.NativeAssets.WebAssembly rather than defining a second copy.
+      ! llvm-nm --defined-only "$LIBPDFIUM" | grep -Eq '(^|[[:space:]])jpeg_CreateDecompress$'
+      llvm-nm --undefined-only "$LIBPDFIUM" | grep -Eq '(^|[[:space:]])jpeg_CreateDecompress$'
+
+      # The archive must use the Wasm EH setjmp/longjmp ABI expected by
+      # the selected SkiaSharp release and current .NET WebAssembly builds.
+      ! llvm-nm --undefined-only "$LIBPDFIUM" | grep -Eq '(^|[[:space:]])emscripten_longjmp$'
+    fi
     ;;
 esac
 

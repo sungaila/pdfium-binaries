@@ -1,0 +1,24 @@
+diff --git a/third_party/BUILD.gn b/third_party/BUILD.gn
+--- a/third_party/BUILD.gn
++++ b/third_party/BUILD.gn
+@@ -325,8 +325,19 @@ if (!build_with_chromium) {
+   }
+
+   config("system_libjpeg_config") {
+-    libs = [ "jpeg" ]
+     defines = [ "USE_SYSTEM_LIBJPEG" ]
++
++    if (target_os == "emscripten") {
++      # SkiaSharp.NativeAssets.WebAssembly supplies the actual JPEG symbols.
++      # Compile PDFium against the exact headers and pre-baked configuration
++      # used by SkiaSharp instead of Emscripten's incompatible IJG v9 port.
++      include_dirs = [
++        "//third_party/skiasharp_libjpeg_turbo",
++        "//third_party/skiasharp_libjpeg_turbo/src",
++      ]
++    } else {
++      libs = [ "jpeg" ]
++    }
+   }
+
+   config("libjpeg_turbo_config") {

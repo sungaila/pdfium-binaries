@@ -5,6 +5,7 @@ OS=${PDFium_TARGET_OS:?}
 VERSION=${PDFium_VERSION:-}
 PATCHES="$PWD/patches"
 BUILD_TYPE=${PDFium_BUILD_TYPE:-shared}
+USE_SYSTEM_LIBJPEG=${PDFium_USE_SYSTEM_LIBJPEG:-false}
 
 SOURCE=${PDFium_SOURCE_DIR:-pdfium}
 BUILD=${PDFium_BUILD_DIR:-pdfium/out}
@@ -76,5 +77,25 @@ MAJOR=$(echo "$VERSION" | cut -d. -f1)
 MINOR=$(echo "$VERSION" | cut -d. -f2)
 BUILD=$(echo "$VERSION" | cut -d. -f3)
 PATCH=$(echo "$VERSION" | cut -d. -f4)
+END
+fi
+
+if [ "$OS" == "emscripten" ] && [ "$USE_SYSTEM_LIBJPEG" == "true" ]; then
+  : "${SKIASHARP_VERSION:?SkiaSharp dependency resolution was not run}"
+  : "${SKIASHARP_TAG:?SkiaSharp dependency resolution was not run}"
+  : "${SKIASHARP_SKIA_COMMIT:?SkiaSharp dependency resolution was not run}"
+  : "${SKIASHARP_LIBJPEG_TURBO_REPOSITORY:?SkiaSharp dependency resolution was not run}"
+  : "${SKIASHARP_LIBJPEG_TURBO_VERSION:?SkiaSharp dependency resolution was not run}"
+  : "${SKIASHARP_LIBJPEG_TURBO_COMMIT:?SkiaSharp dependency resolution was not run}"
+  : "${SKIASHARP_JPEG_LIB_VERSION:?SkiaSharp dependency resolution was not run}"
+
+  cat >"$STAGING/SKIASHARP_LIBJPEG_TURBO" <<END
+SKIASHARP_VERSION=$SKIASHARP_VERSION
+SKIASHARP_TAG=$SKIASHARP_TAG
+SKIASHARP_SKIA_COMMIT=$SKIASHARP_SKIA_COMMIT
+LIBJPEG_TURBO_REPOSITORY=$SKIASHARP_LIBJPEG_TURBO_REPOSITORY
+LIBJPEG_TURBO_VERSION=$SKIASHARP_LIBJPEG_TURBO_VERSION
+LIBJPEG_TURBO_COMMIT=$SKIASHARP_LIBJPEG_TURBO_COMMIT
+JPEG_LIB_VERSION=$SKIASHARP_JPEG_LIB_VERSION
 END
 fi
