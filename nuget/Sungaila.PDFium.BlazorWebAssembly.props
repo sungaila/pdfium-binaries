@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <!-- Set this to true in the consuming project to select the archive compiled with PDFium's use_system_libjpeg=true. -->
+		<!-- The default keeps PDFium's bundled libjpeg implementation for backwards compatibility. -->
+    <PDFiumUseSystemLibjpeg Condition="'$(PDFiumUseSystemLibjpeg)' == ''">false</PDFiumUseSystemLibjpeg>
+  </PropertyGroup>
+
+</Project>
