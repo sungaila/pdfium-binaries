@@ -10,8 +10,6 @@
   <PropertyGroup>
 		<!-- Set to true in the consuming project to select the archive built with use_system_libjpeg=true. -->
 		<PDFiumUseSystemLibjpeg Condition="'$(PDFiumUseSystemLibjpeg)' == ''">false</PDFiumUseSystemLibjpeg>
-		
-    <WasmEnableExceptionHandling>false</WasmEnableExceptionHandling>
   </PropertyGroup>
 
 </Project>
