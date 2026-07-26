@@ -45,8 +45,8 @@ index 6bdb7db77..1dd9adf08 100644
    nm = cc
    ld = cxx
  
-+  extra_cflags = "-Wno-unknown-warning-option"
-+  extra_cxxflags = "-Wno-unknown-warning-option"
++  extra_cflags = "-Wno-unknown-warning-option -sSUPPORT_LONGJMP=wasm"
++  extra_cxxflags = "-Wno-unknown-warning-option -sSUPPORT_LONGJMP=wasm"
 +
    toolchain_args = {
      current_cpu = "wasm"
