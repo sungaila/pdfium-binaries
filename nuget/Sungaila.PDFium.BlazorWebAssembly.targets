@@ -28,7 +28,6 @@
 
   <Target Name="_ValidateSungailaPDFiumNativeLibrary" BeforeTargets="PrepareForBuild" Condition="'$(DesignTimeBuild)' != 'true'">
     <Error Condition="!Exists('$(_PDFiumNativeLibraryPath)')" Text="PDFium WebAssembly archive was not found: $(_PDFiumNativeLibraryPath)" />
-    <Message Importance="High" Text="Using PDFium WebAssembly archive: $(_PDFiumNativeLibraryPath)" />
   </Target>
 
 </Project>
