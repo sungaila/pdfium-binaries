@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
-  <metadata>
-    <id>Sungaila.PDFium.BlazorWebAssembly</id>
-    <version>$version$</version>
-    <authors>Benoît Blanchon, David Sungaila</authors>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">Apache-2.0</license>
-    <projectUrl>https://github.com/sungaila/pdfium-binaries</projectUrl>
-    <description>This package contains pre-compiled binaries of the PDFium library, an open-source library for PDF manipulation and rendering.</description>
-    <releaseNotes>$releaseNotes$</releaseNotes>
-    <tags>PDFium PDF binaries library native Chromium Wasm WebAssembly .NET dotnet Blazor ASP.NET</tags>
-    <repository type="git" url="https://github.com/sungaila/pdfium-binaries.git" branch="$branch$" commit="$commit$" />
-    <icon>icon.png</icon>
-    <iconUrl>https://raw.githubusercontent.com/sungaila/pdfium-binaries/master/nuget/Sungaila.PDFium.BlazorWebAssembly.png</iconUrl>
-    <readme>README.md</readme>
-    <dependencies>
-      <group targetFramework="net9.0" />
-    </dependencies>
-  </metadata>
+	<metadata>
+		<id>Sungaila.PDFium.BlazorWebAssembly</id>
+		<version>$version$</version>
+		<authors>Benoît Blanchon, David Sungaila</authors>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">Apache-2.0</license>
+		<projectUrl>https://github.com/sungaila/pdfium-binaries</projectUrl>
+		<description>This package contains pre-compiled binaries of the PDFium library, an open-source library for PDF manipulation and rendering.</description>
+		<releaseNotes>$releaseNotes$</releaseNotes>
+		<tags>PDFium PDF binaries library native Chromium Wasm WebAssembly .NET dotnet Blazor ASP.NET</tags>
+		<repository type="git" url="https://github.com/sungaila/pdfium-binaries.git" branch="$branch$" commit="$commit$" />
+		<icon>icon.png</icon>
+		<iconUrl>https://raw.githubusercontent.com/sungaila/pdfium-binaries/master/nuget/Sungaila.PDFium.BlazorWebAssembly.png</iconUrl>
+		<readme>README.md</readme>
+		<dependencies>
+			<group targetFramework="net9.0-browser1.0" />
+		</dependencies>
+	</metadata>
 
-  <files>
-    <file src="Sungaila.PDFium.BlazorWebAssembly.png" target="icon.png" />
-    <file src="../README.md" target="README.md" />
+	<files>
+		<file src="Sungaila.PDFium.BlazorWebAssembly.png" target="icon.png" />
+		<file src="../README.md" target="README.md" />
 
-    <!-- https://learn.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu5128 -->
-    <file src="_._" target="lib/net9.0/_._" />
+		<!-- Suppress NU5128 for a package without managed assemblies. -->
+		<file src="_._" target="lib/net9.0-browser1.0/_._" />
 
-    <!-- WebAssembly-specific dependencies aren't referenced automatically and must be referenced manually as NativeFileReferences. -->
-    <!-- Package authors can choose to add the native references by including a .props file in the package with the references. -->
-    <!-- https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-native-dependencies#package-native-dependencies-in-a-nuget-package -->
-    <file src="pdfium-wasm-3.1.56/lib/libpdfium.a" target="build/net9.0/pdfium.a" />
-    <file src="Sungaila.PDFium.BlazorWebAssembly.net9.0.props" target="build/net9.0/Sungaila.PDFium.BlazorWebAssembly.props" />
-    <file src="Sungaila.PDFium.BlazorWebAssembly.net9.0.props" target="buildTransitive/net9.0/Sungaila.PDFium.BlazorWebAssembly.props" />
-  </files>
+		<!-- Keep the native archives beside the transitive MSBuild assets. This makes the path independent of NuGet's selection of another compatible TFM group. -->
+		<file src="pdfium-wasm-3.1.56/lib/libpdfium.a" target="buildTransitive/net9.0-browser1.0/native/bundled-libjpeg/pdfium.a" />
+		<file src="pdfium-wasm-system-libjpeg-3.1.56/lib/libpdfium.a" target="buildTransitive/net9.0-browser1.0/native/system-libjpeg/pdfium.a" />
+
+		<!-- Exact package-ID filenames are required for automatic NuGet imports. -->
+		<file src="Sungaila.PDFium.BlazorWebAssembly.props" target="buildTransitive/net9.0-browser1.0/Sungaila.PDFium.BlazorWebAssembly.props" />
+		<file src="Sungaila.PDFium.BlazorWebAssembly.targets" target="buildTransitive/net9.0-browser1.0/Sungaila.PDFium.BlazorWebAssembly.targets" />
+	</files>
 </package>

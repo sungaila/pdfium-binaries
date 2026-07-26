@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--
+    Package .props files are imported before the body of the consuming project.
+    The final archive selection therefore belongs in .targets, after a project
+    can override PDFiumUseSystemLibjpeg.
+  -->
+  <PropertyGroup>
+    <_PDFiumNativeLibraryVariant Condition="'$(PDFiumUseSystemLibjpeg)' == 'true'">system-libjpeg</_PDFiumNativeLibraryVariant>
+    <_PDFiumNativeLibraryVariant Condition="'$(PDFiumUseSystemLibjpeg)' != 'true'">bundled-libjpeg</_PDFiumNativeLibraryVariant>
+    <_PDFiumNativeLibraryPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)native/$(_PDFiumNativeLibraryVariant)/pdfium.a'))</_PDFiumNativeLibraryPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      Remove both package-owned candidates first. This keeps the import
+      deterministic even if the targets are evaluated more than once.
+    -->
+    <NativeFileReference Remove="$(MSBuildThisFileDirectory)native/bundled-libjpeg/pdfium.a" />
+    <NativeFileReference Remove="$(MSBuildThisFileDirectory)native/system-libjpeg/pdfium.a" />
+
+    <NativeFileReference Include="$(_PDFiumNativeLibraryPath)">
+      <SourcePackage>Sungaila.PDFium.BlazorWebAssembly</SourcePackage>
+      <PDFiumLibjpegVariant>$(_PDFiumNativeLibraryVariant)</PDFiumLibjpegVariant>
+    </NativeFileReference>
+  </ItemGroup>
+
+  <Target Name="_ValidateSungailaPDFiumNativeLibrary" BeforeTargets="PrepareForBuild" Condition="'$(DesignTimeBuild)' != 'true'">
+    <Error Condition="!Exists('$(_PDFiumNativeLibraryPath)')" Text="PDFium WebAssembly archive was not found: $(_PDFiumNativeLibraryPath)" />
+  </Target>
+
+</Project>
