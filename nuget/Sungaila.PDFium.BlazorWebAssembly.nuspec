@@ -25,7 +25,8 @@
     <file src="../README.md" target="README.md" />
 
     <!-- https://learn.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu5128 -->
-    <file src="_._" target="lib/net9.0/_._" />
+    <file src="_._" target="lib/net9.0-browser/_._" />
+		<file src="_._" target="lib/net11.0-browser/_._" />
 
     <!-- WebAssembly-specific dependencies aren't referenced automatically and must be referenced manually as NativeFileReferences. -->
     <!-- Package authors can choose to add the native references by including a .props file in the package with the references. -->
