@@ -36,6 +36,11 @@ on:
         type: string
         required: false
         default: ''
+      build_type:
+        description: Build type (shared|static)
+        type: string
+        required: false
+        default: shared
       emsdk_version:
         description: Emscripten SDK
         type: string
@@ -51,6 +56,10 @@ on:
         type: string
         required: false
         default: 4.150.1
+    secrets:
+      MUSL_URL:
+        description: Optional mirror of musl.cc
+        required: false
     outputs:
       artifact:
         description: "The name of the artifact"
@@ -62,6 +71,10 @@ permissions:
 
 jobs:
   build:
+    name: Build
+    permissions:
+      contents: read
+      actions: write # Upload workflow artifacts
     outputs:
       artifact: ${{ steps.init.outputs.artifact }}
     runs-on: ${{ (inputs.target_os == 'ios' || inputs.target_os == 'mac') && 'macos-15' || inputs.target_os == 'win' && 'windows-2022' || 'ubuntu-24.04' }}
@@ -72,6 +85,7 @@ jobs:
       PDFium_TARGET_OS: ${{ inputs.target_os }}
       PDFium_TARGET_ENVIRONMENT: ${{ inputs.target_environment }}
       PDFium_ENABLE_V8: ${{ inputs.enable_v8 }}
+      PDFium_BUILD_TYPE: ${{ inputs.build_type }}
       PDFium_VERSION: ${{ inputs.version }}
       EMSDK_VERSION: ${{ inputs.emsdk_version }}
       PDFium_USE_SYSTEM_LIBJPEG: ${{ inputs.use_system_libjpeg }}
@@ -87,12 +101,17 @@ jobs:
           [ "$PDFium_TARGET_OS" != "emscripten" ] && ARTIFACT="$ARTIFACT-$PDFium_TARGET_OS"
           [ "$PDFium_TARGET_ENVIRONMENT" != "" ] && ARTIFACT="$ARTIFACT-$PDFium_TARGET_ENVIRONMENT"
           ARTIFACT="$ARTIFACT-$PDFium_TARGET_CPU"
+          [ "$PDFium_BUILD_TYPE" == "static" ] && ARTIFACT="$ARTIFACT-static"
+          [ "$IS_DEBUG" == "true" ] && ARTIFACT="$ARTIFACT-debug"
           [ "$PDFium_TARGET_OS" == "emscripten" ] && [ "$PDFium_USE_SYSTEM_LIBJPEG" == "true" ] && ARTIFACT="$ARTIFACT-system-libjpeg"
-          [ "${{inputs.is_debug}}" == "true" ] && ARTIFACT="$ARTIFACT-debug"
           [ "${{inputs.emsdk_version}}" != "" ] && ARTIFACT="$ARTIFACT-${{inputs.emsdk_version}}"
           echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
+        env:
+          IS_DEBUG: ${{ inputs.is_debug }}
       - name: Checkout this repo
         uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Set environment variables
         run: steps/00-environment.sh
         shell: bash

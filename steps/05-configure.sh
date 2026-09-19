@@ -31,9 +31,16 @@ mkdir -p "$BUILD"
   if [ "$BUILD_TYPE" == "static" ]; then
     echo "pdf_is_complete_lib = true"
 
+    # Chromium's bundled libc++ is only a dependency of executables, shared
+    # libraries and loadable modules (see //build/config/BUILDCONFIG.gn), never
+    # of a static_library, so its compiled objects don't make it into
+    # libpdfium.a. Its symbols also carry the __Cr ABI namespace, which no
+    # platform C++ library provides, so the consumer's link fails on undefined
+    # std::__Cr::ios_base as soon as pdfium's FDF code is pulled in.
+    echo "use_custom_libcxx = false"
+
     if [ "$OS-$TARGET_CPU" == "linux-arm64" ]; then
       echo "use_lld = false"
-      echo "use_custom_libcxx = false"
     fi
   fi
 
@@ -45,6 +52,11 @@ mkdir -p "$BUILD"
       ;;
     ios)
       [ -n "$TARGET_ENVIRONMENT" ] && echo "target_environment = \"$TARGET_ENVIRONMENT\""
+      if [ "$ENABLE_V8" == "true" ]; then
+        echo 'ios_deployment_target = "17.4"'
+      else
+        echo 'ios_deployment_target = "17.0"'
+      fi
       echo "ios_enable_code_signing = false"
       echo "use_blink = true"
       [ "$ENABLE_V8" == "true" ] && [ "$TARGET_CPU" == "arm64" ] && echo 'arm_control_flow_integrity = "none"'
