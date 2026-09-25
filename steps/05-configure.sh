@@ -10,6 +10,21 @@ IS_DEBUG=${PDFium_IS_DEBUG:-false}
 BUILD_TYPE=${PDFium_BUILD_TYPE:-shared}
 USE_SYSTEM_LIBJPEG=${PDFium_USE_SYSTEM_LIBJPEG:-false}
 
+# Emscripten 6.0.2 and newer must match .NET 11's standardized Wasm EH.
+PDFIUM_WASM_STANDARD_EXCEPTIONS=false
+if [ "$OS" == "emscripten" ] && [[ "${EMSDK_VERSION:-}" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+  major=${BASH_REMATCH[1]}
+  minor=${BASH_REMATCH[2]}
+  patch=${BASH_REMATCH[3]}
+  if (( 10#$major > 6 || (10#$major == 6 && (10#$minor > 0 || (10#$minor == 0 && 10#$patch >= 2))) )); then
+    PDFIUM_WASM_STANDARD_EXCEPTIONS=true
+  fi
+fi
+export PDFIUM_WASM_STANDARD_EXCEPTIONS
+if [ -n "${GITHUB_ENV:-}" ]; then
+  echo "PDFIUM_WASM_STANDARD_EXCEPTIONS=$PDFIUM_WASM_STANDARD_EXCEPTIONS" >> "$GITHUB_ENV"
+fi
+
 mkdir -p "$BUILD"
 
 (
