@@ -16,6 +16,7 @@
 		<readme>README.md</readme>
 		<dependencies>
 			<group targetFramework="net9.0-browser1.0" />
+			<group targetFramework="net11.0-browser1.0" />
 		</dependencies>
 	</metadata>
 
@@ -25,13 +26,18 @@
 
 		<!-- Suppress NU5128 for a package without managed assemblies. -->
 		<file src="_._" target="lib/net9.0-browser1.0/_._" />
+		<file src="_._" target="lib/net11.0-browser1.0/_._" />
 
 		<!-- Keep the native archives beside the transitive MSBuild assets. This makes the path independent of NuGet's selection of another compatible TFM group. -->
 		<file src="pdfium-wasm-3.1.56/lib/libpdfium.a" target="buildTransitive/net9.0-browser1.0/native/bundled-libjpeg/pdfium.a" />
 		<file src="pdfium-wasm-system-libjpeg-3.1.56/lib/libpdfium.a" target="buildTransitive/net9.0-browser1.0/native/system-libjpeg/pdfium.a" />
+		<file src="pdfium-wasm-6.0.2/lib/libpdfium.a" target="buildTransitive/net11.0-browser1.0/native/bundled-libjpeg/pdfium.a" />
+		<file src="pdfium-wasm-system-libjpeg-6.0.2/lib/libpdfium.a" target="buildTransitive/net11.0-browser1.0/native/system-libjpeg/pdfium.a" />
 
 		<!-- Exact package-ID filenames are required for automatic NuGet imports. -->
 		<file src="Sungaila.PDFium.BlazorWebAssembly.props" target="buildTransitive/net9.0-browser1.0/Sungaila.PDFium.BlazorWebAssembly.props" />
 		<file src="Sungaila.PDFium.BlazorWebAssembly.targets" target="buildTransitive/net9.0-browser1.0/Sungaila.PDFium.BlazorWebAssembly.targets" />
+		<file src="Sungaila.PDFium.BlazorWebAssembly.props" target="buildTransitive/net11.0-browser1.0/Sungaila.PDFium.BlazorWebAssembly.props" />
+		<file src="Sungaila.PDFium.BlazorWebAssembly.targets" target="buildTransitive/net11.0-browser1.0/Sungaila.PDFium.BlazorWebAssembly.targets" />
 	</files>
 </package>
