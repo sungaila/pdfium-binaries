@@ -182,6 +182,15 @@ case "$OS" in
       # the selected SkiaSharp release and current .NET WebAssembly builds.
       ! llvm-nm --undefined-only "$LIBPDFIUM" | grep -Eq '(^|[[:space:]])emscripten_longjmp$'
     fi
+
+    if [ "${PDFIUM_WASM_STANDARD_EXCEPTIONS:-false}" == "true" ]; then
+      # .NET 11 uses the standardized Wasm exception instructions.
+      # A legacy try in any archive member can make the final module invalid.
+      if llvm-objdump -d "$LIBPDFIUM" | grep -Eq $'\ttry[[:space:]]'; then
+        echo "PDFium archive contains legacy Wasm exception instructions" >&2
+        exit 1
+      fi
+    fi
     ;;
 esac
 
