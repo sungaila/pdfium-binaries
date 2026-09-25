@@ -47,7 +47,7 @@ index 6bdb7db77..1dd9adf08 100644
  
 +  extra_cflags = "-Wno-unknown-warning-option -sSUPPORT_LONGJMP=wasm"
 +  extra_cxxflags = "-Wno-unknown-warning-option -sSUPPORT_LONGJMP=wasm"
-+  if (getenv("EMSDK_VERSION") == "6.0.2") {
++  if (getenv("PDFIUM_WASM_STANDARD_EXCEPTIONS") == "true") {
 +    extra_cflags += " -sWASM_LEGACY_EXCEPTIONS=0"
 +    extra_cxxflags += " -sWASM_LEGACY_EXCEPTIONS=0"
 +  }
