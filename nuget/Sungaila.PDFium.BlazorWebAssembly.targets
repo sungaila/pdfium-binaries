@@ -21,8 +21,8 @@
     <NativeFileReference Remove="$(MSBuildThisFileDirectory)native/system-libjpeg/pdfium.a" />
 
     <NativeFileReference Include="$(_PDFiumNativeLibraryPath)">
-      <SourcePackage>Sungaila.PDFium.BlazorWebAssembly</SourcePackage>
-      <PDFiumLibjpegVariant>$(_PDFiumNativeLibraryVariant)</PDFiumLibjpegVariant>
+    <SourcePackage>Sungaila.PDFium.BlazorWebAssembly</SourcePackage>
+    <PDFiumLibjpegVariant>$(_PDFiumNativeLibraryVariant)</PDFiumLibjpegVariant>
     </NativeFileReference>
   </ItemGroup>
 
