@@ -30,6 +30,10 @@ while read -r LIBRARY; do
     cpu_features)
       cp "$SOURCE_DIR/third_party/cpu_features/src/LICENSE" "$OUTPUT_DIR/cpu_features.txt"
       ;;
+    dragonbox)
+      cp "$SOURCE_DIR/third_party/dragonbox/src/LICENSE-Apache2-LLVM" "$OUTPUT_DIR/dragonbox-Apache2-LLVM.txt"
+      cp "$SOURCE_DIR/third_party/dragonbox/src/LICENSE-Boost" "$OUTPUT_DIR/dragonbox-Boost.txt"
+      ;;
     fast_float)
       cp "$SOURCE_DIR/third_party/fast_float/src/LICENSE-MIT" "$OUTPUT_DIR/fast_float.txt"
       ;;
@@ -38,6 +42,9 @@ while read -r LIBRARY; do
       ;;
     freetype|fx_freetype)
       cp "$SOURCE_DIR/third_party/freetype/FTL.TXT" "$OUTPUT_DIR/freetype.txt"
+      ;;
+    harfbuzz)
+      cp "$SOURCE_DIR/third_party/harfbuzz/src/COPYING" "$OUTPUT_DIR/harfbuzz.txt"
       ;;
     highway)
       cp "$SOURCE_DIR/third_party/highway/LICENSE" "$OUTPUT_DIR/highway.txt"
@@ -49,7 +56,7 @@ while read -r LIBRARY; do
       cp "$SOURCE_DIR/v8/third_party/inspector_protocol/LICENSE" "$OUTPUT_DIR/inspector_protocol.txt"
       ;;
     lcms|lcms2|fx_lcms|fx_lcms2)
-      sed '/^$/,$d' "$SOURCE_DIR/third_party/lcms/include/lcms2.h" > "$OUTPUT_DIR/lcms.txt"
+      sed '/^$/,$d' "$SOURCE_DIR/third_party/lcms/src/include/lcms2.h" > "$OUTPUT_DIR/lcms.txt"
       ;;
     libpng|png)
       cp "$SOURCE_DIR/third_party/libpng/LICENSE" "$OUTPUT_DIR/libpng.txt"
@@ -63,10 +70,10 @@ while read -r LIBRARY; do
       cp "$SOURCE_DIR/third_party/skiasharp_libjpeg_turbo/README.ijg" "$OUTPUT_DIR/libjpeg_turbo.ijg"
       ;;
     libopenjpeg|libopenjpeg2|fx_libopenjpeg)
-      sed -n '1,/\*\//p' "$SOURCE_DIR/third_party/libopenjpeg/openjpeg.c" > "$OUTPUT_DIR/libopenjpeg.txt"
+      sed -n '1,/\*\//p' "$SOURCE_DIR/third_party/libopenjpeg/src/openjpeg.c" > "$OUTPUT_DIR/libopenjpeg.txt"
       ;;
     libtiff|fx_tiff|tiff)
-      sed '1d;s/^.\{0,3\}//;23,$d' "$SOURCE_DIR/third_party/libtiff/t4.h" > "$OUTPUT_DIR/libtiff.txt"
+      sed '1d;s/^.\{0,3\}//;23,$d' "$SOURCE_DIR/third_party/libtiff/src/t4.h" > "$OUTPUT_DIR/libtiff.txt"
       ;;
     libunwind)
       cp "$SOURCE_DIR/third_party/libunwind/src/LICENSE.TXT" "$OUTPUT_DIR/libunwind.txt"
@@ -84,7 +91,7 @@ while read -r LIBRARY; do
       # IGNORE: we don't need to include these licenses
       ;;
     *)
-      echo "WARNING: unknow library $LIBRARY" >&2
+      echo "::warning file=steps/08-licenses.sh::Unknown library $LIBRARY"
       ;;
   esac
 done <<< "$THIRD_PARTY_LIBRARIES"
