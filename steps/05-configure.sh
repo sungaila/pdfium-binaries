@@ -92,6 +92,7 @@ mkdir -p "$BUILD"
       echo 'pdf_is_complete_lib = true'
       echo 'is_clang = false'
       echo 'use_custom_libcxx = false'
+      echo 'pdf_use_libyuv = false'
       echo "use_system_libjpeg = $USE_SYSTEM_LIBJPEG"
       [ "$USE_SYSTEM_LIBJPEG" == "true" ] && echo 'use_libjpeg_turbo = false'
       if [ "$ENABLE_V8" == "true" ]; then
