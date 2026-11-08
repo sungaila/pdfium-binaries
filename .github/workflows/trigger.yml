@@ -19,7 +19,7 @@ jobs:
       actions: write # Trigger downstream workflow
     steps:
     - name: Trigger build
-      uses: benc-uk/workflow-dispatch@master
+      uses: benc-uk/workflow-dispatch@v1
       with:
         workflow: Build Wasm
         token: "${{ secrets.PERSONAL_ACCESS_TOKEN }}"

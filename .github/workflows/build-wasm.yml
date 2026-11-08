@@ -13,7 +13,7 @@ on:
         description: SkiaSharp version used to resolve the matching mono/skia and libjpeg-turbo revisions
         type: string
         required: true
-        default: 4.156.0
+        default: 4.155.0
       release:
         description: Publish GitHub release
         type: boolean
